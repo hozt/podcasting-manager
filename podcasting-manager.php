@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: A plugin to manage podcasts with GraphQL support
- * Version: 1.0
+ * Version: 1.1
  * Author: Jeffrey Haug
  */
 
@@ -149,7 +149,7 @@ class PodcastingManager {
                 'item_updated' => 'Episode updated',
             ),
 
-            'supports' => array('title', 'editor', 'thumbnail'),
+            'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
             'show_in_graphql' => true,
             'graphql_single_name' => 'podcastEpisode',
             'graphql_plural_name' => 'podcastEpisodes',
