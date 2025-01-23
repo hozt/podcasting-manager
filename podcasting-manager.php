@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: A plugin to manage podcasts with GraphQL support
- * Version: 1.1
+ * Version: 1.0.2
  * Author: Jeffrey Haug
  */
 
@@ -235,12 +235,42 @@ class PodcastingManager {
     }
 
     public function register_graphql_fields() {
-        register_graphql_fields('PodcastEpisode', [
-            'episodeNumber' => ['type' => 'Int'],
-            'mp3File' => ['type' => 'String'],
-            'episodeDate' => ['type' => 'String'],
-            'episodeLength' => ['type' => 'Int'],
-            'fileSize' => ['type' => 'Int']
+        register_graphql_fields('podcastEpisode', [
+            'episodeNumber' => [
+                'type' => 'Int',
+                'description' => 'The episode number',
+                'resolve' => function($post) {
+                    return get_post_meta($post->ID, '_episode_number', true);
+                }
+            ],
+            'mp3File' => [
+                'type' => 'String',
+                'description' => 'The MP3 file URL',
+                'resolve' => function($post) {
+                    return get_post_meta($post->ID, '_mp3_file', true);
+                }
+            ],
+            'episodeDate' => [
+                'type' => 'String',
+                'description' => 'The episode date',
+                'resolve' => function($post) {
+                    return get_post_meta($post->ID, '_episode_date', true);
+                }
+            ],
+            'episodeLength' => [
+                'type' => 'Int',
+                'description' => 'The episode length in seconds',
+                'resolve' => function($post) {
+                    return get_post_meta($post->ID, '_episode_length', true);
+                }
+            ],
+            'fileSize' => [
+                'type' => 'Int',
+                'description' => 'The file size in bytes',
+                'resolve' => function($post) {
+                    return get_post_meta($post->ID, '_file_size', true);
+                }
+            ]
         ]);
 
         register_graphql_field('RootQuery', 'podcastSettings', [
