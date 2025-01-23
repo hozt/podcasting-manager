@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: A plugin to manage podcasts with GraphQL support
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Jeffrey Haug
  */
 
@@ -286,6 +286,11 @@ class PodcastingManager {
                     'hosts' => get_option('podcast_hosts'),
                     'explicitRating' => get_option('podcast_explicit_rating'),
                     'series' => get_option('podcast_series'),
+                    'owner' => get_option('podcast_owner'),
+                    'license' => get_option('podcast_license'),
+                    'trailer' => get_option('podcast_trailer'),
+                    'updateFrequency' => get_option('podcast_update_frequency'),
+                    'categories' => get_option('podcast_categories'),
                 ];
             }
         ]);
@@ -300,6 +305,11 @@ class PodcastingManager {
                 'hosts' => ['type' => 'String'],
                 'explicitRating' => ['type' => 'String'],
                 'series' => ['type' => 'String'],
+                'owner' => ['type' => 'String'],
+                'license' => ['type' => 'String'],
+                'trailer' => ['type' => 'String'],
+                'updateFrequency' => ['type' => 'String'],
+                'categories' => ['type' => 'String'],
             ]
         ]);
     }
