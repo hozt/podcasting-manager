@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: A plugin to manage podcasts with GraphQL support
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Jeffrey Haug
  */
 
@@ -40,6 +40,7 @@ class PodcastingManager {
         register_setting('podcast_settings', 'podcast_trailer', array('sanitize_callback' => 'esc_url_raw'));
         register_setting('podcast_settings', 'podcast_update_frequency', array('sanitize_callback' => 'sanitize_text_field'));
         register_setting('podcast_settings', 'podcast_categories', array('sanitize_callback' => 'sanitize_text_field'));
+        register_setting('podcast_settings', 'podcast_keywords', array('sanitize_callback' => 'sanitize_text_field'));
     }
 
     public function settings_page() {
@@ -108,6 +109,10 @@ class PodcastingManager {
                     <tr>
                         <th scope="row"><label for="podcast_categories">Categories</label></th>
                         <td><input type="text" id="podcast_categories" name="podcast_categories" value="<?php echo esc_attr(get_option('podcast_categories')); ?>" class="regular-text"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="podcast_keywords">Keywords</label></th>
+                        <td><input type="text" id="podcast_keywords" name="podcast_keywords" value="<?php echo esc_attr(get_option('podcast_keywords')); ?>" class="regular-text"></td>
                     </tr>
                 </table>
                 <?php submit_button(); ?>
@@ -291,6 +296,7 @@ class PodcastingManager {
                     'trailer' => get_option('podcast_trailer'),
                     'updateFrequency' => get_option('podcast_update_frequency'),
                     'categories' => get_option('podcast_categories'),
+                    'keywords' => get_option('podcast_keywords')
                 ];
             }
         ]);
@@ -310,6 +316,7 @@ class PodcastingManager {
                 'trailer' => ['type' => 'String'],
                 'updateFrequency' => ['type' => 'String'],
                 'categories' => ['type' => 'String'],
+                'keywords' => ['type' => 'String']
             ]
         ]);
     }
