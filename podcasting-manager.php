@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: A plugin to manage podcasts with GraphQL support
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Jeffrey Haug
  */
 
@@ -124,47 +124,46 @@ class PodcastingManager {
     public function register_post_type() {
         $args = array(
             'public' => true,
-            'label'  => 'Podcast Episodes',
+            'label'  => 'Podcasts',
             'labels' => array(
-                'singular_name' => 'Podcast Episode',
-                'add_new_item' => 'Add New Episode',
-                'edit_item' => 'Edit Episode',
-                'new_item' => 'New Episode',
-                'view_item' => 'View Episode',
-                'view_items' => 'View Episodes',
-                'search_items' => 'Search Episodes',
-                'not_found' => 'No episodes found',
-                'not_found_in_trash' => 'No episodes found in trash',
-                'all_items' => 'All Episodes',
-                'archives' => 'Episode Archives',
-                'attributes' => 'Episode Attributes',
-                'insert_into_item' => 'Insert into episode',
-                'uploaded_to_this_item' => 'Uploaded to this episode',
-                'featured_image' => 'Episode Image',
-                'set_featured_image' => 'Set episode image',
-                'remove_featured_image' => 'Remove episode image',
-                'use_featured_image' => 'Use as episode image',
-                'filter_items_list' => 'Filter episodes list',
-                'items_list_navigation' => 'Episodes list navigation',
-                'items_list' => 'Episodes list',
-                'item_published' => 'Episode published',
-                'item_published_privately' => 'Episode published privately',
-                'item_reverted_to_draft' => 'Episode reverted to draft',
-                'item_scheduled' => 'Episode scheduled',
-                'item_updated' => 'Episode updated',
+                'singular_name' => 'Podcast',
+                'add_new_item' => 'Add New Podcast',
+                'edit_item' => 'Edit Podcast',
+                'new_item' => 'New Podcast',
+                'view_item' => 'View Podcast',
+                'view_items' => 'View Podcasts',
+                'search_items' => 'Search Podcasts',
+                'not_found' => 'No podcasts found',
+                'not_found_in_trash' => 'No podcasts found in trash',
+                'all_items' => 'All Podcasts',
+                'archives' => 'Podcast Archives',
+                'attributes' => 'Podcast Attributes',
+                'insert_into_item' => 'Insert into podcast',
+                'uploaded_to_this_item' => 'Uploaded to this podcast',
+                'featured_image' => 'Podcast Image',
+                'set_featured_image' => 'Set podcast image',
+                'remove_featured_image' => 'Remove podcast image',
+                'use_featured_image' => 'Use as podcast image',
+                'filter_items_list' => 'Filter podcasts list',
+                'items_list_navigation' => 'Podcasts list navigation',
+                'items_list' => 'Podcasts list',
+                'item_published' => 'Podcast published',
+                'item_published_privately' => 'Podcast published privately',
+                'item_reverted_to_draft' => 'Podcast reverted to draft',
+                'item_scheduled' => 'Podcast scheduled',
+                'item_updated' => 'Podcast updated',
             ),
-
             'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
             'show_in_graphql' => true,
-            'graphql_single_name' => 'podcastEpisode',
-            'graphql_plural_name' => 'podcastEpisodes',
+            'graphql_single_name' => 'podcast',
+            'graphql_plural_name' => 'podcasts',
             'graphql_interfaces' => ['ContentNode', 'NodeWithTitle'],
         );
-        register_post_type('podcast_episode', $args);
+        register_post_type('podcast', $args);
     }
 
     public function add_meta_boxes() {
-        add_meta_box('podcast_episode_meta', 'Episode Details', array($this, 'render_meta_box'), 'podcast_episode', 'normal', 'high');
+        add_meta_box('podcast_meta', 'Podcast Details', array($this, 'render_meta_box'), 'podcast', 'normal', 'high');
     }
 
     public function render_meta_box($post) {
@@ -240,7 +239,7 @@ class PodcastingManager {
     }
 
     public function register_graphql_fields() {
-        register_graphql_fields('podcastEpisode', [
+        register_graphql_fields('podcast', [
             'episodeNumber' => [
                 'type' => 'Int',
                 'description' => 'The episode number',
