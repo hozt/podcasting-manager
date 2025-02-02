@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: A plugin to manage podcasts with GraphQL support
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Jeffrey Haug
  */
 
@@ -173,6 +173,7 @@ class PodcastingManager {
         $episode_date = get_post_meta($post->ID, '_episode_date', true);
         $episode_length = get_post_meta($post->ID, '_episode_length', true);
         $file_size = get_post_meta($post->ID, '_file_size', true);
+        $transcript = get_post_meta($post->ID, '_transcript', true);
         ?>
         <p>
             <label for="episode_number">Episode Number:</label>
@@ -194,6 +195,10 @@ class PodcastingManager {
             <label for="file_size">File Size (in bytes):</label>
             <input type="number" id="file_size" name="file_size" value="<?php echo esc_attr($file_size); ?>" min="0">
         </p>
+        <p>
+            <label for="transcript">Transcript:</label>
+            <textarea name="transcript" id="transcript" rows="10" class="widefat"><?php echo wp_kses_post($transcript); ?></textarea>
+        </p>
         <?php
     }
 
@@ -213,7 +218,8 @@ class PodcastingManager {
             'mp3_file' => 'esc_url_raw',
             'episode_date' => 'sanitize_text_field',
             'episode_length' => 'intval',
-            'file_size' => 'intval'
+            'file_size' => 'intval',
+            'transcript' => 'wp_kses_post'
         );
 
         foreach ($fields as $field => $sanitize_callback) {
@@ -273,6 +279,13 @@ class PodcastingManager {
                 'description' => 'The file size in bytes',
                 'resolve' => function($post) {
                     return get_post_meta($post->ID, '_file_size', true);
+                }
+            ],
+            'transcript' => [
+                'type' => 'String',
+                'description' => 'HTML formatted transcript',
+                'resolve' => function($post) {
+                    return get_post_meta($post->ID, '_transcript', true);
                 }
             ]
         ]);
