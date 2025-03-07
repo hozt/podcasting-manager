@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Podcasting Manager
  * Description: Manage podcasts with admin interface and GraphQL support.
- * Version:     1.0.7
+ * Version:     1.0.8
  * Author: Jeffrey Haug
  */
 
@@ -176,10 +176,29 @@ class PodcastingManager {
     }
 
     public function register_graphql_fields() {
+
         register_graphql_object_type('PodcastSettings', [
             'fields' => [
                 'podcastName' => ['type' => 'String'],
                 'podcastDescription' => ['type' => 'String'],
+                'podcastImage' => ['type' => 'String'],
+                'podcastDonationLink' => ['type' => 'String'],
+                'podcastLocation' => ['type' => 'String'],
+                'podcastHosts' => ['type' => 'String'],
+                'podcastExplicitRating' => ['type' => 'String'],
+                'podcastSeries' => ['type' => 'String'],
+                'podcastOwner' => ['type' => 'String'],
+                'podcastLicense' => ['type' => 'String'],
+                'podcastTrailer' => ['type' => 'String'],
+                'podcastUpdateFrequency' => ['type' => 'String'],
+                'podcastCategories' => ['type' => 'String'],
+                'podcastKeywords' => ['type' => 'String'],
+                // added link fields below
+                'podcastAppleLink' => ['type' => 'String'],
+                'podcastPodcastingIndexLink' => ['type' => 'String'],
+                'podcastSpotifyLink' => ['type' => 'String'],
+                'podcastAmazonLink' => ['type' => 'String'],
+                'podcastIheartLink' => ['type' => 'String'],
             ]
         ]);
 
@@ -190,6 +209,23 @@ class PodcastingManager {
                 return [
                     'podcastName' => get_option('podcast_name'),
                     'podcastDescription' => get_option('podcast_description'),
+                    'podcastImage' => get_option('podcast_image'),
+                    'podcastDonationLink' => get_option('podcast_donation_link'),
+                    'podcastLocation' => get_option('podcast_location'),
+                    'podcastHosts' => get_option('podcast_hosts'),
+                    'podcastExplicitRating' => get_option('podcast_explicit_rating'),
+                    'podcastSeries' => get_option('podcast_series'),
+                    'podcastOwner' => get_option('podcast_owner'),
+                    'podcastLicense' => get_option('podcast_license'),
+                    'podcastTrailer' => get_option('podcast_trailer'),
+                    'podcastUpdateFrequency' => get_option('podcast_update_frequency'),
+                    'podcastCategories' => get_option('podcast_categories'),
+                    'podcastKeywords' => get_option('podcast_keywords'),
+                    'podcastAppleLink' => get_option('podcast_apple_link'),
+                    'podcastPodcastingIndexLink' => get_option('podcast_podcasting_index_link'),
+                    'podcastSpotifyLink' => get_option('podcast_spotify_link'),
+                    'podcastAmazonLink' => get_option('podcast_amazon_link'),
+                    'podcastIheartLink' => get_option('podcast_iheart_link'),
                 ];
             }
         ]);
@@ -199,7 +235,26 @@ class PodcastingManager {
                 'type' => 'Int',
                 'resolve' => fn($post) => (int)get_post_meta($post->ID, '_episode_number', true),
             ],
-            // [Add additional fields similarly]
+            'mp3File' => [
+                'type' => 'String',
+                'resolve' => fn($post) => get_post_meta($post->ID, '_mp3_file', true),
+            ],
+            'episodeDate' => [
+                'type' => 'String',
+                'resolve' => fn($post) => get_post_meta($post->ID, '_episode_date', true),
+            ],
+            'episodeLength' => [
+                'type' => 'Int',
+                'resolve' => fn($post) => (int)get_post_meta($post->ID, '_episode_length', true),
+            ],
+            'fileSize' => [
+                'type' => 'Int',
+                'resolve' => fn($post) => (int)get_post_meta($post->ID, '_file_size', true),
+            ],
+            'transcript' => [
+                'type' => 'String',
+                'resolve' => fn($post) => get_post_meta($post->ID, '_transcript', true),
+            ],
         ]);
     }
 
